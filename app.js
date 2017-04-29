@@ -32,6 +32,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//Ajouter le path pour Ckeditor
+app.use('/ckeditor',express.static(path.join(__dirname, './ckeditor')));
+
 //Passport initialisation
 app.use(passport.initialize());
 app.use(passport.session());
@@ -45,15 +48,15 @@ app.use(passport.session());
 
 
 //Passport configuration
-var Account = require('./models/account');
-passport.use(new LocalStrategy(Account.authenticate()));
-passport.serializeUser(Account.serializeUser());
-passport.deserializeUser(Account.deserializeUser());
+var AdminModel = require('./models/AdminModel');
+passport.use(new LocalStrategy(AdminModel.authenticate()));
+passport.serializeUser(AdminModel.serializeUser());
+passport.deserializeUser(AdminModel.deserializeUser());
 
 
 
 //Se connecter a notre base de données
-mongoose.connect('mongodb://localhost:27017/Admin_DB'); //L'adresse de notre base de données
+mongoose.connect('mongodb://localhost:27017/PFE_DB'); //L'adresse de notre base de données
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error : '));
 db.once('open',function(){

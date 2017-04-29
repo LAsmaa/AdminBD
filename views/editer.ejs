@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <% include template/header.ejs %>
+    <script src="../ckeditor/ckeditor.js"></script>
+    <title>Membres</title>
+</head>
+<body>
+<% include template/navBar.ejs %>
+<div class="container">
+<form action="/editer" method="post">
+    <div class="well">
+        <h2>Modifier un article</h2>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-8">
+                    <label>Titre:</label>
+                    <input type="text" class="form-control" name="titreA" value="<%= art.titre%>">
+                </div>
+            </div>
+            <br>
+            <label for="summernote">Contenu:</label>
+            <textarea cols="10" id="Contenu" name="Contenu" rows="10" ><%- art.contenu %></textarea>
+
+            <script>
+                //Ajout d'uploadcare a mon editeur de texte ckeditor
+                UPLOADCARE_PUBLIC_KEY = 'demopublickey';
+                CKEDITOR.replace( 'Contenu' , {
+                    extraPlugins: 'uploadcare',
+                    uploadcare: {
+                        multiple: true
+                    }
+                });
+
+            </script>
+            <div align="center">
+                <button type="submit" class="btn btn-default" >Modifier l'article</button>
+            </div>
+        </div>
+
+</form>
+</div>
+</div>
+</body>
+</html>
