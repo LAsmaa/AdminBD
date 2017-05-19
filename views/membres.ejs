@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gestion des membres</title>
+    <% include template/header.ejs %>
+    <script src="../ckeditor/ckeditor.js"></script>
+
+</head>
+<body>
+<header>
+    <% include template/navBar.ejs %>
+</header>
+<div class="container">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+        <table class="table table-condensed">
+            <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Options</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            </tr>
+            <% doc.forEach(function (userP) { %>
+            <tr>
+                <td><%= userP.username %></td>
+                <td>
+                    <a href="/deleteAccount?id=<%=userP._id%>&user=<%=userP.username%>" onclick="return confirm('êtes vous sur de vouloir supprimer cet utilisateur ? \n' +
+             'Toute les informations relatives a ce compte seront supprimés');" >Supprimer</a>
+                </td>
+            </tr><% }) %>
+            <tr>
+                <form action="/addAccount" method="post"  >
+                    <td><input type="text" class="form-control" id="User" placeholder="Ajouter un compte" name="username"></td>
+                    <td><input type="password" class="form-control" id="password" placeholder="Mot de passe" name="password"></td>
+                    <td><button onclick="return confirm('Vous êtes sur de vouloir ajouter cet utilisateur ?');" type="submit">Ajouter</button></td>
+                </form>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+</body>
+</html>
+
