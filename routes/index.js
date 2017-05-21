@@ -188,12 +188,15 @@ router.get('/membres', function (req, res) {
     if (req.user){
         var listeAccount = account.find(function (err, doc) {
             if (err) return console.log(err);
-            res.render('membres', {
-                listeAccount : listeAccount,
-                doc: doc,
-                user : req.user,
-            });
-
+            var listeProfils = profil.find(function (err, prof) {
+                res.render('membres', {
+                    listeAccount : listeAccount,
+                    listeProfils: listeProfils,
+                    doc: doc,
+                    prof: prof,
+                    user : req.user,
+                });
+            })
         })
     }else
         res.redirect('/login');
