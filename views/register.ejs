@@ -1,38 +1,20 @@
 <html>
-<head>
-    <title>Register</title>
-</head>
+
 <body>
-<div class="container">
-    <h1>Ajouter compte</h1>
-
-
-    <div class="col-sm-5 well" align="center">
-        <div class="login-clean">
-            <form class="form-horizontal" action="/register" method="post">
-                <div class="illustration"></div>
-                <div class="form-group">
-                    <label class="control-label col-sm-5" for="username">Nom d'utilisateur:</label>
-                    <div class="col-sm-7">
-                        <input type="text" class="form-control" id="username" placeholder="Nom d'utilisateur" name="username">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-5" for="pwd">Mot de passe:</label>
-                    <div class="col-sm-7">
-                        <input type="password" class="form-control" id="ppasswordwd" placeholder="Enter password" name="password">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-default">Se connecter</button>
-                    </div>
-                </div>
-
-            </form>
+<form action="/register" method="post"  >
+    <div class="row">
+        <div class="col-sm-5">
+            <input type="text" class="form-control" id="User" placeholder="Nom d'utilisateur" name="username">
+        </div>
+        <div class="col-sm-5">
+            <input type="password" class="form-control" id="password" placeholder="Mot de passe" name="password">
+        </div>
+        <div class="col-sm-2">
+            <button onclick="return confirm('Vous êtes sur de vouloir ajouter cet utilisateur ?');" type="submit" class="btn btn-default">Ajouter</button>
         </div>
     </div>
-    <br>
-</div>
+
+</form>
 </body>
+
 </html>

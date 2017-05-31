@@ -177,6 +177,24 @@ router.post('/updateArticle', function (req, res) {
 })
 
 
+router.post('/register', function (req, res) {
+    AdminModel.register(new account({ username : req.body.username}) ,req.body.password, function (err) {
+            if (err) console.log('Erreur lors de le l ajout');
+            console.log('Utilisateur ajouté');
+            var newProfile = new profil({
+                user    : req.body.username
+            });
+            newProfile.save(function (err) {
+                if (err) console.log('Erreur lors de le l ajour du profil');
+                console.log('Profil utilisateur ajouté');
+            })
+            res.redirect('/membres');
+    })
+})
+
+router.get('/register', function (req, res) {
+    res.render('register', { });
+})
 
 
 // ========================================= //

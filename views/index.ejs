@@ -108,7 +108,8 @@
                       <td><%= doc.titre %></td>
                       <td><%= doc.articles.length %></td>
                       <td>
-                        <a href="/deleteRubrique?id=<%=doc._id%>"><span class="glyphicon glyphicon-trash"></span> Supprimer</a>
+                        <a href="/deleteRubrique?id=<%=doc._id%>"  onclick="return confirm('êtes vous sur de vouloir supprimer cette rubrique ? \n' +
+             'Toute les informations relatives seront supprimés');"  ><span class="glyphicon glyphicon-trash"></span> Supprimer</a>
                         <a href="#" data-toggle="modal" data-target="#update-modal<%=doc._id%>" ><span class="glyphicon glyphicon-pencil"></span> Renommer</a></li>
                         <div class="modal fade" id="update-modal<%=doc._id%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
                           <div class="modal-dialog">

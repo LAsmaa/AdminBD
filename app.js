@@ -56,7 +56,7 @@ passport.deserializeUser(AdminModel.deserializeUser());
 
 
 //Se connecter a notre base de données
-mongoose.connect('mongodb://localhost:27017/PFE_DB'); //L'adresse de notre base de données
+mongoose.connect('mongodb://Asmaa:1ARIGATOU@ds151451.mlab.com:51451/equipe_de_recherche_bd'); //L'adresse de notre base de données
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error : '));
 db.once('open',function(){
