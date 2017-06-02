@@ -25,9 +25,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 
-app.set('templates', path.join(__dirname, 'templates'));
-
-
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -60,7 +57,7 @@ passport.deserializeUser(AdminModel.deserializeUser());
 
 
 //Se connecter a notre base de données
-mongoose.connect('mongodb://Asmaa:1ARIGATOU@ds151451.mlab.com:51451/equipe_de_recherche_bd'); //L'adresse de notre base de données
+mongoose.connect('mongodb://User:123123@ds151451.mlab.com:51451/equipe_de_recherche_bd'); //L'adresse de notre base de données
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error : '));
 db.once('open',function(){
