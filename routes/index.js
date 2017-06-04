@@ -63,7 +63,7 @@ router.get('/', function(req, res, next) {
 router.post('/addRubrique', function (req, res) {
     if (req.user){
         var newRubrique = new rubrique({
-            titre: req.body.titreRubrique
+            titreRubrique: req.body.titreRubrique
         });
         newRubrique.save(function (err) {
             if (err) console.log('Erreur lors de le l ajour de la rubrique');
@@ -92,7 +92,7 @@ router.get('/deleteRubrique', function (req, res) {
 router.post('/updateRubrique', function (req, res) {
     if (req.user){
         rubrique.findOne({_id:req.body.idRubrique}, function (err, doc) {
-            doc.titre= req.body.NewTitre;
+            doc.titreRubrique= req.body.NewTitre;
             doc.save(function (err) {
                 if (err){
                     consore.error("******** Erreur lors de la sauvegarde ********");
@@ -116,9 +116,9 @@ router.post('/updateRubrique', function (req, res) {
 //Ajout d'un article  ================================================> OK
 router.post('/addArticle', function (req, res) {
     if (req.user){
-        rubrique.findOne({titre: req.body.nomRubrique}, function (err, doc) {
+        rubrique.findOne({titreRubrique: req.body.nomRubrique}, function (err, doc) {
             doc.articles.push({
-                titre: req.body.titreA,
+                titreArticle: req.body.titreA,
                 contenu: req.body.Contenu
             })
             doc.save(function (err) {
@@ -140,7 +140,7 @@ router.post('/addArticle', function (req, res) {
 router.get('/deleteArticle', function (req, res) {
     if (req.user){
         var id = req.query.id;
-        rubrique.findOne({titre: req.query.titre}, function (err, doc) {
+        rubrique.findOne({titreRubrique: req.query.titre}, function (err, doc) {
             doc.articles.id(id).remove();
             doc.save(function(){
                 if (err) console.log('Erreur lors de la suppression');
@@ -156,27 +156,32 @@ router.get('/deleteArticle', function (req, res) {
 //Modification d'article  ============================================> OK
 router.post('/updateArticle', function (req, res) {
     if (req.user){
-
         var id = req.body.idArticle;
-        rubrique.findOne({titre : req.body.titreRubrique }, function (err, doc) {
+        var idRubrique = req.body.idRubrique;
+        rubrique.findOneAndUpdate(
+            {"_id": idRubrique,  "articles._id": id},
+            {
+                "$set":{
+                    "articles.$.titreArticle" : req.body.titreA,
+                    "articles.$.contenu": req.body.Contenu
+                }
+            },
+            function (err){
 
-            doc.articles.id(id).remove();
-            doc.articles.push({
-                titre: req.body.titreA,
-                contenu: req.body.Contenu
-            })
-            doc.save(function(){
                 if (err) console.log('Erreur lors de la suppression');
-                console.log('Article supprimé et autre ajouté');
+                console.log('Article Modifie');
                 res.redirect('/');
-            });
-        })
+            }
+        )
     }else
         res.redirect('/login');
 
 })
 
 
+// ************************************************* //
+//Provisoire le temps de faire des testes pour l'admin
+// ************************************************* //
 router.post('/register', function (req, res) {
     AdminModel.register(new account({ username : req.body.username}) ,req.body.password, function (err) {
             if (err) console.log('Erreur lors de le l ajout');
@@ -195,6 +200,11 @@ router.post('/register', function (req, res) {
 router.get('/register', function (req, res) {
     res.render('register', { });
 })
+
+
+// ************************************************* //
+// Fin provisoire
+// ************************************************* //
 
 
 // ========================================= //
