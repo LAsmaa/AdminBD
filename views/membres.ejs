@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gestion des membres</title>
+    <% include templates/header.ejs %>
+    <script src="../ckeditor/ckeditor.js"></script>
+
+</head>
+<body>
+<header>
+    <% include templates/navBar.ejs %>
+</header>
+<div class="container">
+    <div class="col-sm-12">
+        <div class="well">
+            <table class="table table-condensed">
+                <thead>
+                <tr>
+                    <th>Nom d'utlisateur</th>
+                    <th>Nom de l'enseignant</th>
+                    <th>Grade de l'enseignant</th>
+                    <th>Options</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                </tr>
+                <% doc.forEach(function (userP) { %>
+                <tr>
+                    <td><%= userP.username %></td>
+
+                    <% prof.forEach(function (profilP) {
+                    if (profilP.user == userP.username){%>
+
+                    <td>
+                        <%= profilP.nom %>
+                    </td>
+
+                    <td>
+                        <%= profilP.grade %>
+                    </td>
+                    <%} %>
+                    <%})%>
+
+                    <td>
+                        <a href="/deleteAccount?id=<%=userP._id%>&user=<%=userP.username%>" onclick="return confirm('êtes vous sur de vouloir supprimer cet utilisateur ? \n' +
+             'Toute les informations relatives a ce compte seront supprimés');" > <span class="glyphicon glyphicon-trash"> </span> Supprimer</a>
+                    </td>
+                </tr><% }) %>
+                <tr>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+
+        <div class="well">
+            <label>Ajouter un compte</label>
+            <form action="/addAccount" method="post"  >
+                <div class="row">
+                    <div class="col-sm-5">
+                        <input required type="text" class="form-control" id="User" placeholder="Nom d'utilisateur" name="username">
+                    </div>
+                    <div class="col-sm-5">
+                        <input required type="password" class="form-control" id="password" placeholder="Mot de passe" name="password">
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="submit" class="btn btn-default">Ajouter</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+
+    </div>
+</div>
+</div>
+</body>
+</html>
+
